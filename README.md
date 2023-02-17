@@ -9,7 +9,8 @@ python -m venv NameUrVenv
 NameUrVenv\Scripts\activate.bat
 ```
 ## Установите зависимости 
-```pip install -r requiarements.txt 
+```
+pip install -r requiarements.txt 
 ```
 ## Активируйте базы данных 
 ```
