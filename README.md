@@ -1,10 +1,10 @@
 # dj-srtipe-one-page-one-item
 
-##Подключите окружение в папке проекта 
+#Подключите окружение в папке проекта 
 ```
 python -m venv NameUrVenv
 ```
-##Активируйте его
+#Активируйте его
 ```
 NameUrVenv\Scripts\activate.bat
 ```
