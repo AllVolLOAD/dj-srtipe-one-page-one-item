@@ -1,22 +1,21 @@
 # dj-srtipe-one-page-one-item
 
-#Подключите окружение в папке проекта 
+## Подключите окружение в папке проекта 
 ```
 python -m venv NameUrVenv
 ```
-#Активируйте его
+## Активируйте его
 ```
 NameUrVenv\Scripts\activate.bat
 ```
 ## Установите зависимости 
-```
-> pip install -r requiarements.txt 
+```pip install -r requiarements.txt 
 ```
 ## Активируйте базы данных 
 ```
-> py manage.py migrate
+py manage.py migrate
 ```
 ## Запустите сервер
 ```
-> py manage.py runserver
+py manage.py runserver
 ```
