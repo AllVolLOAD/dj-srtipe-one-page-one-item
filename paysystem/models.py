@@ -11,3 +11,6 @@ class Item(models.Model):
 
     def get_display_price(self):
         return "{0:.2f}".format(self.price / 100)
+
+class Order(models.Model):
+    pass
