@@ -19,14 +19,23 @@ section {
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 112px;
+  width: 300px;
+  height: 163px;
   border-radius: 6px;
   justify-content: space-between;
 }
 .product {
   display: flex;
     margin: auto;
+}
+#counter {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+    margin: auto;
+}
+#calculation{
+    display: inline-block;
 }
 .description {
   display: flex;
@@ -80,6 +89,7 @@ button {
   border-radius: 0 0 6px 6px;
   transition: all 0.2s ease;
   box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  display: inline-block;
 }
 button:hover {
   opacity: 0.8;
@@ -91,8 +101,12 @@ button:hover {
  <body>
     <section>
       <div class="product"><h3>{{ product.name }}</h3></div>
-        <div class="description"><h5>${{ product.get_display_price }}</h5></div>
-      <button type="button" id="checkout-button">Buy</button>
+        <div class="description"><h5>${{ product.price }}</h5></div>
+        <div class="description"><h6>{{ product.description}}</h6></div>
+        <div id="counter">
+            <input type="button" id="buttonCountPlus" value="+">
+            <div id="buttonCountNumber">1</div><input type="button" id="buttonCountMinus" value="-"></div>
+            <button type="button" id="checkout-button">Buy $<div id="calculation">{{ product.price }}</div></button>
     </section>
     {% csrf_token %}
   </body>
@@ -123,6 +137,33 @@ checkoutButton.addEventListener("click", function () {
       console.error("Error:", error);
     });
 });
+
+
+let calculate = document.getElementById("calculation");
+let count = document.getElementById("buttonCountNumber");
+calculation = document.getElementById("calculation").innerHTML;
+
+document.getElementById("buttonCountPlus").onclick = function() {
+  let countPlus = +count.innerHTML;
+  if(countPlus <= 3){
+    count.innerHTML++;
+    let countPlus = +count.innerHTML;
+    calculate.innerHTML = calculations(countPlus) ;
+  }
+}
+
+document.getElementById("buttonCountMinus").onclick = function() {
+  let countMinus = +count.innerHTML;
+  if(countMinus >= 2){
+    count.innerHTML--;
+    let countMinus = +count.innerHTML;
+    calculate.innerHTML = calculations(countMinus) ;
+  }
+}
+
+calculations = (count) => {
+  return  count * Number(calculation);
+}
   </script>
 </html>
   </body>
