@@ -101,12 +101,15 @@ button:hover {
  <body>
     <section>
       <div class="product"><h3>{{ product.name }}</h3></div>
-        <div class="description"><h5>${{ product.price }}</h5></div>
+        <div class="description"><h5>${{ product.get_display_price }}</h5></div>
         <div class="description"><h6>{{ product.description}}</h6></div>
         <div id="counter">
             <input type="button" id="buttonCountPlus" value="+">
             <div id="buttonCountNumber">1</div><input type="button" id="buttonCountMinus" value="-"></div>
-            <button type="button" id="checkout-button">Buy $<div id="calculation">{{ product.price }}</div></button>
+            <button type="button" id="checkout-button">Buy $
+                <div id="calculation">{{ product.get_display_price }}</div>
+            </button>
+
     </section>
     {% csrf_token %}
   </body>
@@ -115,13 +118,23 @@ button:hover {
 
 let stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
 let checkoutButton = document.getElementById("checkout-button");
+
+
 checkoutButton.addEventListener("click", function () {
-  fetch("{% url 'create-checkout-session' product.id %}", {
+    let buttonCountNumber = document.getElementById('buttonCountNumber').innerHTML;
+    let buttonPriceNumber = Number(document.getElementById('calculation').innerHTML)*100;
+    fetch("{% url 'create-checkout-session' product.id %}", {
     method: "POST",
-    headers: {
-        'X-CSRFToken': csrftoken
-    }
-  })
+     headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    body: JSON.stringify({
+      its_prise: buttonPriceNumber,
+      its_counter: buttonCountNumber,
+    })
+})
+
     .then(function (response) {
       return response.json();
     })
@@ -162,7 +175,10 @@ document.getElementById("buttonCountMinus").onclick = function() {
 }
 
 calculations = (count) => {
-  return  count * Number(calculation);
+   oper = count * Number(calculation);
+   return oper.toFixed(2);
+
+
 }
   </script>
 </html>
